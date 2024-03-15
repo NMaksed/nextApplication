@@ -1,6 +1,5 @@
 package com.grecco.apinext.model;
 
-import com.grecco.apinext.model.enums.TipoPlano;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,19 +14,15 @@ import java.util.List;
 @Entity
 @Table(name = "aluno")
 public class Aluno {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Enumerated(EnumType.STRING)
-    private TipoPlano plano;
-    private LocalDate vencimento;
-    private Boolean vencido;
     private String observacao;
     private String email;
-    private String planoMutavel;
     @Setter(AccessLevel.NONE)
     private LocalDate dataCadastro;
+    @OneToOne
+    private Plano plano;
     @OneToOne
     @JoinColumn(name = "pessoa_id", referencedColumnName = "id")
     private Pessoa pessoa;

@@ -17,11 +17,12 @@ public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
      * @param filtro
      * @return
      */
-    @Query("SELECT NEW com.grecco.apinext.model.form.AlunoForm(a.plano, a.dataCadastro, a.pessoa.nome, a.vencido, a.email) FROM Aluno a " +
-            "WHERE (:#{#filtro.plano} IS NULL OR a.plano = :#{#filtro.plano}) " +
-            "AND (:#{#filtro.dataCadastro} IS NULL OR a.dataCadastro <= :#{#filtro.dataCadastro}) " +
-            "AND (:#{#filtro.nome} IS NULL OR a.pessoa.nome = :#{#filtro.nome}) " +
-            "AND (:#{#filtro.vencido} IS NULL OR a.vencido = :#{#filtro.vencido})")
+    @Query("SELECT NEW com.grecco.apinext.model.form.AlunoForm(a.pessoa.nome, a.email) FROM Aluno a " +
+            "WHERE (:#{#filtro.nome} IS NULL OR a.pessoa.nome = :#{#filtro.nome})" +
+            "AND (:#{#filtro.email} IS NULL OR a.email = :#{#filtro.email})")
     List<AlunoForm> findAlunoByFiltro(@Param("filtro") AlunoFilter filtro);
+
+    @Query(value = "SELECT * FROM aluno a WHERE a.id = :id", nativeQuery = true)
+    Aluno pesquisarPorId(@Param("id") Integer id);
 
 }

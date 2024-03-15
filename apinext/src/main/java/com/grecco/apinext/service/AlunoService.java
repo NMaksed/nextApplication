@@ -8,7 +8,9 @@ import com.grecco.apinext.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlunoService {
@@ -34,11 +36,8 @@ public class AlunoService {
                 .build();
         Aluno aluno = Aluno
                 .builder()
-                .plano(form.getPlano())
                 .email(form.getEmail())
                 .observacao(form.getObservacao())
-                .vencimento(form.getVencimento())
-                .planoMutavel(form.getPlanoMutavel())
                 .pessoa(pessoa)
                 .build();
         salvar(aluno);
@@ -50,5 +49,9 @@ public class AlunoService {
 
     public List<AlunoForm> pesquisarComFiltro(AlunoFilter filtro) {
         return alunoRepository.findAlunoByFiltro(filtro);
+    }
+
+    public Aluno pesquisarAlunoById(Integer id) {
+        return alunoRepository.pesquisarPorId(id);
     }
 }

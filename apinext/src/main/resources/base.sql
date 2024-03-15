@@ -43,13 +43,10 @@ CREATE TABLE `roles`
 CREATE TABLE `aluno`
 (
     `id`             integer PRIMARY KEY AUTO_INCREMENT,
-    `plano`          varchar(255),
-    `vencimento`     date,
-    `vencido`        bit,
+    `plano_id`       integer ,
     `observacao`     longtext,
     `data_cadastro`   date,
     `email`          varchar(255),
-    `plano_mutavel`  varchar(255),
     `pessoa_id`      integer NOT NULL,
     `agendamento_id` integer
 );
@@ -69,7 +66,34 @@ CREATE TABLE `aluno_agendamento`
     `agendamento_id` integer
 );
 
+CREATE TABLE `plano`
+(
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `valor` double NOT NULL,
+    `descricao` VARCHAR(255),
+    `tipo` VARCHAR(255)
+);
 
+CREATE TABLE `alunocobranca`
+(
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `plano_id` integer,
+    `valor_cobranca` double,
+    `pago` bit,
+    `aluno_id` integer
+);
+
+ALTER TABLE alunocobranca
+    ADD FOREIGN KEY (plano_id)
+        REFERENCES plano(`id`);
+
+ALTER TABLE alunocobranca
+    ADD FOREIGN KEY (aluno_id)
+        REFERENCES aluno(`id`);
+
+ALTER TABLE aluno
+    ADD FOREIGN KEY (plano_id)
+        REFERENCES plano(`id`);
 
 ALTER TABLE funcionario
     ADD FOREIGN KEY (pessoa_id)
@@ -131,18 +155,12 @@ INSERT INTO funcionario (salario, pagamento, pessoa_id) VALUES
     (7000.00, '2024-03-25', 4);
 INSERT INTO funcionario (salario, pagamento, pessoa_id) VALUES
     (7000.00, '2024-03-25', 11);
-INSERT INTO aluno (plano, vencimento, vencido, observacao, data_cadastro, email, plano_mutavel, pessoa_id) VALUES
-    ('MENSAL_2X', '2024-01-31', false, 'Sem observações', '2024-01-01', 'nathangfonseca@hotmail.com', 'ANUAL_5X', 5);
-INSERT INTO aluno (plano, vencimento, vencido, observacao, data_cadastro, email, plano_mutavel, pessoa_id) VALUES
-    ('MENSAL_3X', '2024-02-15', true, 'Pagamento atrasado', '2024-01-01', 'nathangfonseca@hotmail.com', 'ANUAL_5X', 6);
-INSERT INTO aluno (plano, vencimento, vencido, observacao, data_cadastro, email, plano_mutavel, pessoa_id) VALUES
-    ('MENSAL_5X', '2024-01-05', false, 'Com desconto especial', '2024-01-05', 'nathangfonseca@hotmail.com', 'ANUAL_5X', 7);
-INSERT INTO aluno (plano, vencimento, vencido, observacao, data_cadastro, email, plano_mutavel, pessoa_id) VALUES
-    ('ANUAL_2X', '2024-03-20', false, 'Sem observações', '2024-01-03', 'nathangfonseca@hotmail.com', 'ANUAL_5X', 8);
-INSERT INTO aluno (plano, vencimento, vencido, observacao, data_cadastro, email, plano_mutavel, pessoa_id) VALUES
-    ('ANUAL_3X', '2024-02-28', true, 'Pagamento atrasado', '2024-01-02', 'nathangfonseca@hotmail.com', 'ANUAL_5X', 9);
-INSERT INTO aluno (plano, vencimento, vencido, observacao, data_cadastro, email, plano_mutavel, pessoa_id) VALUES
-    ('ANUAL_5X', '2024-04-10', false, 'Com desconto especial', '2024-01-01', 'nathangfonseca@hotmail.com', 'ANUAL_5X', 10);
-INSERT INTO usuario (email, senha, funcionario_id) VALUES('nathangfonseca@hotmail.com', 'receba', 5);
+INSERT INTO plano(valor, descricao, tipo) VALUES (200.0, "3X SEMANA", "MENSAL");
+INSERT INTO plano(valor, descricao, tipo) VALUES (200.0, "3X SEMANA", "TRIMESTRAL");
+INSERT INTO plano(valor, descricao, tipo) VALUES (200.0, "3X SEMANA", "ANUAL");
+INSERT INTO plano(valor, descricao, tipo) VALUES (200.0, "3X SEMANA", "SEMESTRAL");
+INSERT INTO aluno(plano_id, observacao, data_cadastro, email, pessoa_id) VALUES (1, "Teste", "2024-06-11", "nathangfonseca@hotmail.com", 5);
+INSERT INTO aluno(plano_id, observacao, data_cadastro, email, pessoa_id) VALUES (2, "Teste", "2024-06-11", "nathangfonseca@hotmail.com", 6);
+INSERT INTO aluno(plano_id, observacao, data_cadastro, email, pessoa_id) VALUES (3, "Teste", "2024-06-11", "nathangfonseca@hotmail.com", 7);
 
 

@@ -17,19 +17,11 @@ public class AlunoForm {
     private String cpf;
     private String cep;
     private LocalDate dataNascimento;
-    private TipoPlano plano;
-    private LocalDate vencimento;
-    private Boolean vencido;
     private String observacao;
     private String email;
-    private String planoMutavel;
 
-    public AlunoForm(TipoPlano plano, LocalDate vencimento, String nome, Boolean vencido, String email) {
-        this.plano = plano;
-        this.vencimento = vencimento;
+    public AlunoForm(String nome, String email) {
         this.nome = nome;
-        this.vencido = vencido;
         this.email = email;
-
     }
 }
