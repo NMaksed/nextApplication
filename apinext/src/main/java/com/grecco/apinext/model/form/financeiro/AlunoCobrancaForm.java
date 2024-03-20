@@ -2,6 +2,7 @@ package com.grecco.apinext.model.form.financeiro;
 
 import com.grecco.apinext.model.Aluno;
 import com.grecco.apinext.model.Plano;
+import com.grecco.apinext.model.enums.FormaPagamento;
 import lombok.*;
 
 @NoArgsConstructor
@@ -11,6 +12,6 @@ import lombok.*;
 @Builder
 public class AlunoCobrancaForm {
 
-    private Integer plano;
     private Integer aluno;
+    private FormaPagamento formaPagamento;
 }

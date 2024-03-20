@@ -78,8 +78,12 @@ CREATE TABLE `alunocobranca`
 (
     `id` integer PRIMARY KEY AUTO_INCREMENT,
     `plano_id` integer,
+    `numero_parcela` int,
     `valor_cobranca` double,
     `pago` bit,
+    `cancelado` bit,
+    `forma_pagamento` VARCHAR(255),
+    `mes_cobranca` VARCHAR(255),
     `aluno_id` integer
 );
 
