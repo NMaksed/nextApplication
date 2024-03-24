@@ -12,25 +12,6 @@ export function Login() {
   const [email, onChangeEmail] = React.useState("");
   const [senha, onChangeSenha] = React.useState("");
 
-  const fetchLogin = async (form) => {
-    try {
-      const login = await Logar(form);
-      if (login.ok) {
-        navigation.navigate("Home");
-      }
-    } catch (error) {
-      console.error('Erro ao fazer a solicitação:', error);
-    }
-  }
-
-  const login = () => {
-    if (email.trim() != "" && senha.trim() != "") {
-      const form = { email, senha };
-      fetchLogin(form);
-    } else {
-      Alert.alert("Erro", "Existem erros de credenciais, verifique!")
-    }
-  }
 
   return (
     <View id="container" style={styles.container}>
