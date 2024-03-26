@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, StyleSheet, View } from "react-native";
 import { CampoTexto } from "../../../components/CampoTexto";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export function CadastroAluno() {
   const [nome, setNome] = useState();
@@ -13,20 +14,30 @@ export function CadastroAluno() {
 
 
   const salvar = () => {
-    if (nome.trim() != "" && rg.trim() != "") {
-      const form = {nome, rg}
+    if (nome.trim() != "" || rg.trim() != "" || cpf.trim != null || cep.trim != null) {
+      const form = { nome, rg }
       fetchSalvar(form);
     }
   }
 
   const fetchSalvar = (form) => {
-    
+      const response = SalvarAluno(form);
   }
 
+  const limpar = () => {
+      setCep('');
+      setCpf('');
+      setRg('');
+      setDataNascimento('')
+      setEmail('');
+      setNome('')
+      setTelefone('')
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.centeredView}>
+        <View style={{ width: "80%", marginBottom: 50, marginTop: 90 }}>
         <CampoTexto
           value={nome}
           placeholder="Nome"
@@ -37,12 +48,44 @@ export function CadastroAluno() {
           placeholder="RG"
           onChangeText={setRg}
         />
-
+        <CampoTexto
+          value={cpf}
+          placeholder="CPF"
+          onChangeText={setCpf}
+        />
+        <CampoTexto
+          value={email}
+          placeholder="Email"
+          onChangeText={setEmail}
+        />
+        <CampoTexto
+          value={dataNascimento}
+          placeholder="yyyy-MM-dd"
+          onChangeText={setDataNascimento}
+          />
+        <CampoTexto
+          value={telefone}
+          placeholder="Telefone"
+          onChangeText={setTelefone}
+        />
+        <CampoTexto
+          value={cep}
+          placeholder="CEP"
+          onChangeText={setCep}
+        />
         <Button
           onPress={salvar}
-          title="Teste"
+          title="Salvar"
           color="#e54360"
         />
+        <View style={{ marginTop: 20 }}>
+        <Button
+          onPress={limpar}
+          title="Limpar"
+          color="#e54360"
+        />
+        </View>
+        </View>
       </View>
     </View>
   )
